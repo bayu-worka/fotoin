@@ -1,0 +1,5 @@
+ready = ->
+  $(document).ajaxStart(NProgress.start).ajaxStop NProgress.done
+
+$(document).ready(ready)
+$(document).on('page:load', ready)

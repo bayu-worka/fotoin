@@ -1,0 +1,28 @@
+p#notice = notice
+
+p
+  strong Title:
+  = @photo.title
+
+p
+  strong Image:
+  = image_tag(@photo.image)
+p
+  strong Description:
+  = @photo.description
+p
+  strong User:
+  = @photo.user.email
+p
+  strong Like:
+  = @photo.get_likes.size
+
+- if user_signed_in?
+  - if current_user.voted_for?(@photo)
+    = link_to "Unlike", unlike_photo_path(@photo)
+  - else
+    = link_to "Like", like_photo_path(@photo)
+
+=> link_to 'Edit', edit_photo_path(@photo)
+'|
+=< link_to 'Back', photos_path

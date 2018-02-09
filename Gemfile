@@ -39,6 +39,7 @@ gem 'simple_form'
 gem 'kaminari'
 gem 'carrierwave', '~> 1.0'
 gem 'acts_as_votable', '~> 0.11.1'
+gem 'acts_as_commentable_with_threading'
 
 # assets
 gem 'bootstrap-sass', '~> 3.3.7'

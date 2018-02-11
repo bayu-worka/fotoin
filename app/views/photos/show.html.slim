@@ -1,29 +1,30 @@
-p#notice = notice
+section
+  .container
+    h2= @photo.title
+    p#notice = notice
+    p
+      strong Image:
+      = image_tag(@photo.image, class: "img-responsive")
+    p
+      strong Description:
+      = @photo.description
+    p
+      strong User:
+      = link_to @photo.user.email, user_path(@photo.user)
+    p
+      strong Like:
+      = @photo.get_likes.size
+    p
+      - if user_signed_in?
+        - if current_user.voted_for?(@photo)
+          = link_to "Unlike", unlike_photo_path(@photo)
+        - else
+          = link_to "Like", like_photo_path(@photo)
 
-p
-  strong Title:
-  = @photo.title
-
-p
-  strong Image:
-  = image_tag(@photo.image)
-p
-  strong Description:
-  = @photo.description
-p
-  strong User:
-  = @photo.user.email
-p
-  strong Like:
-  = @photo.get_likes.size
-
-- if user_signed_in?
-  = render partial: "comments/template", locals: {commentable: @photo, new_comment: @new_comment}
-  - if current_user.voted_for?(@photo)
-    = link_to "Unlike", unlike_photo_path(@photo)
-  - else
-    = link_to "Like", like_photo_path(@photo)
-
-=> link_to 'Edit', edit_photo_path(@photo)
-'|
-=< link_to 'Back', photos_path
+    - if user_signed_in?
+      = render partial: "comments/template", locals: {commentable: @photo, new_comment: @new_comment}
+      - if current_user.eql?(@photo.user)
+        p    
+          => link_to 'Edit', edit_photo_path(@photo)
+          '|
+          =< link_to 'Back', photos_path

@@ -1,0 +1,14 @@
+.container.gallery-container
+  p.page-description.text-center Your Moments
+  .tz-gallery
+    .row
+      - @photos.each do |photo|
+        .col-sm-6.col-md-4
+          .thumbnail
+            = link_to photo_path(photo), class: "lightbox" do
+              = image_tag photo.image 
+            .caption
+              h3= photo.title
+              p= photo.description
+      = paginate @photos
+    = link_to "New Moment", new_photo_path

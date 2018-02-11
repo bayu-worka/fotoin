@@ -1,8 +1,9 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!, except: [:show]
-  before_action :set_user
+  before_action :set_user, except: :gallery
 
   def show
+    @photos = current_user.photos.page(params[:page])
   end
 
   def follow
@@ -19,6 +20,10 @@ class UsersController < ApplicationController
       format.html { redirect_to @user, notice: 'Photo was successfully unfollowed.' }
       format.json { head :no_content }
     end
+  end
+
+  def gallery
+    @photos = current_user.photos.page(params[:page])
   end
 
   private

@@ -45,6 +45,7 @@ gem 'acts_as_follower', github: 'tcocca/acts_as_follower', branch: 'master'
 # assets
 gem 'bootstrap-sass', '~> 3.3.7'
 gem 'nprogress-rails'
+gem 'font-awesome-sass', '~> 5.0.6'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

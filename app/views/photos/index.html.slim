@@ -1,27 +1,18 @@
-h1 Listing photos
-
-table
-  thead
-    tr
-      th Title
-      th Image
-      th Description
-      th User
-      th
-      th
-      th
-
-  tbody
-    - @photos.each do |photo|
-      tr
-        td = photo.title
-        td = photo.image
-        td = photo.description
-        td = photo.user
-        td = link_to 'Show', photo
-        td = link_to 'Edit', edit_photo_path(photo)
-        td = link_to 'Destroy', photo, data: { confirm: 'Are you sure?' }, method: :delete
-
-br
-
-= link_to 'New Photo', new_photo_path
+section
+  .container
+    h2 Gallery
+  .container.gallery-container
+    p.page-description.text-center
+    .tz-gallery
+      .row
+        - @photos.each do |photo|
+          .col-sm-6.col-md-4
+            .thumbnail
+              = link_to photo_path(photo), class: "lightbox" do
+                = image_tag photo.image 
+              .caption
+                h3= photo.title
+                h3= link_to photo.user.email, user_path(photo.user)
+                p= photo.description
+        = paginate @photos
+      = link_to "New Moment", new_photo_path

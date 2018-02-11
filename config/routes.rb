@@ -9,9 +9,13 @@ Rails.application.routes.draw do
       delete "comment", to: "comments#destroy", as: :comment
     end
   end
-
+  
   devise_for :users
   resources :users, only: [:show] do
+    collection do
+      get :gallery
+    end
+
     member do
       get :follow
       get :unfollow

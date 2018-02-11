@@ -5,13 +5,13 @@ class PhotosController < ApplicationController
   # GET /photos
   # GET /photos.json
   def index
-    @photos = Photo.all
+    @photos = Photo.page(params[:page])
   end
 
   # GET /photos/1
   # GET /photos/1.json
   def show
-    @new_comment = Comment.build_from(@beer, current_user.id, "") if user_signed_in?
+    @new_comment = Comment.build_from(@photo, current_user.id, "") if user_signed_in?
   end
 
   # GET /photos/new

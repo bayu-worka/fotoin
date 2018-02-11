@@ -3,12 +3,16 @@ html
   head
     title Fotoin
     = csrf_meta_tags
-    
+    meta charset="utf-8"
+    meta content="IE=edge" http-equiv="X-UA-Compatible"
+    meta content="" name="description"
+    meta content="width=device-width, initial-scale=1" name="viewport"
+    meta content="all,follow" name="robots"
+
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
   body
-    p.notice= notice
-    p.alert= alert
-
+    = render "layouts/header"
     = yield
+    = render "layouts/footer"
     = yield :javascript

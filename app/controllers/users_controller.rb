@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!, except: [:show]
-  before_action :set_user, except: :gallery
+  before_action :set_user, except: [:gallery, :otp, :request_otp, :validate_otp]
 
   def show
     @photos = current_user.photos.page(params[:page])
@@ -24,6 +24,23 @@ class UsersController < ApplicationController
 
   def gallery
     @photos = current_user.photos.page(params[:page])
+  end
+
+  def otp    
+  end
+
+  def request_otp
+    current_user.request_otp
+    redirect_to otp_users_path, notice: 'Otp code sent, please check your phone.'
+  end
+
+  def validate_otp
+    response = current_user.validate_otp(params[:otp])
+    if response.instance_variable_get(:@error)
+      redirect_to otp_users_path, notice: response.instance_variable_get(:@error)
+    else
+      redirect_to root_path, notice: "Your phone number successfully activated"
+    end
   end
 
   private

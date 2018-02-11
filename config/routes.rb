@@ -14,6 +14,9 @@ Rails.application.routes.draw do
   resources :users, only: [:show] do
     collection do
       get :gallery
+      get :otp
+      get :request_otp
+      post :validate_otp
     end
 
     member do

@@ -1,0 +1,9 @@
+section
+  .container
+    h2 OTP
+    = form_tag validate_otp_users_path do
+      .form-inputs
+        = text_field_tag :otp
+      .form-actions
+        = submit_tag "Submit"
+    = link_to "Request OTP", request_otp_users_path

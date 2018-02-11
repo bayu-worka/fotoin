@@ -1,0 +1,5 @@
+= form_for @new_comment, url: comments_photo_path(@photo) do |f|
+  .field.form-group
+    = f.text_area :body, class: 'form-control'
+  .field.form-group
+    = submit_tag "Post comment", class: 'btn btn-primary'

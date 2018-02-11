@@ -1,0 +1,15 @@
+- comments.each do |comment|
+  .comments-show
+    .comment
+      p
+        = comment.body
+        br
+      .comment-nav
+        a.comment-reply href="javascript:void(0)" reply
+      .reply-form
+        = form_for @new_comment, url: comment_reply_photo_path(commentable, comment) do |f|
+          .field.form-group
+            = f.text_area :body, class: 'form-control'
+          .field.form-group
+            = submit_tag "Post Reply", class: 'btn btn-primary'
+    = render partial: "comments/reply", locals: {comments: comment.children, commentable: commentable}

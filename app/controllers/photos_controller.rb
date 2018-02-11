@@ -11,6 +11,7 @@ class PhotosController < ApplicationController
   # GET /photos/1
   # GET /photos/1.json
   def show
+    @new_comment = Comment.build_from(@beer, current_user.id, "") if user_signed_in?
   end
 
   # GET /photos/new

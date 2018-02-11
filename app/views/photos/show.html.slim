@@ -18,6 +18,7 @@ p
   = @photo.get_likes.size
 
 - if user_signed_in?
+  = render partial: "comments/template", locals: {commentable: @photo, new_comment: @new_comment}
   - if current_user.voted_for?(@photo)
     = link_to "Unlike", unlike_photo_path(@photo)
   - else

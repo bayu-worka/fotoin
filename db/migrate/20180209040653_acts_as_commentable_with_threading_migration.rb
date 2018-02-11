@@ -7,7 +7,8 @@ class ActsAsCommentableWithThreadingMigration < ActiveRecord::Migration[5.1]
       t.text :body
       t.string :subject
       t.uuid :user_id, :null => false
-      t.uuid :parent_id, :lft, :rgt
+      t.uuid :parent_id
+      t.integer :lft, :rgt
       t.timestamps
     end
 

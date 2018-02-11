@@ -1,9 +1,12 @@
 Rails.application.routes.draw do
-  
+
   resources :photos do
     member do
       get :like
       get :unlike
+      post "comments", to: "comments#create", as: :comments
+      post "comments/:comment_id", to: "comments#reply", as: :comment_reply
+      delete "comment", to: "comments#destroy", as: :comment
     end
   end
 

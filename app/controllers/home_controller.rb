@@ -1,5 +1,9 @@
 class HomeController < ApplicationController
   def index
-    @photos = current_user.followed_photos if user_signed_in?
+    @photos = if user_signed_in?
+      current_user.followed_photos.page(params[:page])
+    else
+      Photo.order("RANDOM()").limit(3)
+    end
   end
 end

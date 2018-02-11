@@ -1,1 +1,17 @@
-p Find me in app/views/home/index.html.slim
+section
+  .container
+    h2 Tahukah kamu?
+    p.lead Ada sekitar 45 juta pengguna Instagram di Indonesia, terbanyak di Asia Pasifik Aplikasi sharing momen yang paling banyak digunakan adalah Instagram dan Snapchat Tak satupun yang memberikan keuntungan secara langsung kepada usernya.
+    p.lead fotoin: aplikasi sharing momen kaya fitur yang memberikan lebih dengan sistem monetizing dan crowd engagement yang seru!
+section.background-gray-lightest
+  .container
+    .row
+      - @photos.each do |photo|
+        .col-sm-4
+          .post
+            .image
+              = link_to photo_path(photo) do
+                = image_tag(photo.image, class: "img-responsive")
+            h3
+              = link_to photo.title, photo_path(photo)
+            p.post__intro= photo.description

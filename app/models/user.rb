@@ -8,4 +8,9 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
 
   has_many :photos, dependent: :destroy
+
+  def followed_photos
+    following_ids = all_following.map(&:id)
+    Photo.where(user_id: following_ids)
+  end
 end

@@ -1,2 +1,5 @@
 h1 Home#index
-p Find me in app/views/home/index.html.slim
+- if user_signed_in?
+  = render "index_signed_in_user"
+- else
+  = render "index_unsigned_in_user"

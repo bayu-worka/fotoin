@@ -19,10 +19,10 @@ class SmsOtp
     end
   end
 
-  def request_otp(phone_number)
+  def request_otp(phone_number, token_otp)
     if @access_token
       params = URI.encode_www_form({phoneNum: phone_number, digit: 6})
-      result = HTTParty.put("https://api.mainapi.net/smsotp/1.0.1/otp/01010", 
+      result = HTTParty.put("https://api.mainapi.net/smsotp/1.0.1/otp/#{token_otp}", 
                             :body => params,
                             :headers => { 'Content-Type' => 'application/x-www-form-urlencoded', 'Authorization' => "Bearer #{@access_token}" } )
       if result.parsed_response["status"]
@@ -35,10 +35,10 @@ class SmsOtp
     end
   end
 
-  def validate_otp(otp)
+  def validate_otp(otp, token_otp)
     if @access_token
       params = URI.encode_www_form({otpstr: otp, digit: 6})
-      response = HTTParty.post("https://api.mainapi.net/smsotp/1.0.1/otp/01010/verifications", 
+      response = HTTParty.post("https://api.mainapi.net/smsotp/1.0.1/otp/#{token_otp}/verifications", 
                                 :body => params,
                                 :headers => { 'Content-Type' => 'application/x-www-form-urlencoded', 'Authorization' => "Bearer #{@access_token}" } )
       if response.parsed_response["status"]

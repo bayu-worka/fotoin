@@ -17,6 +17,7 @@ Rails.application.routes.draw do
       get :otp
       get :request_otp
       post :validate_otp
+      get :profile
     end
 
     member do

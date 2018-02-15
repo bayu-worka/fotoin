@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!, except: [:show]
-  before_action :set_user, except: [:gallery, :otp, :request_otp, :validate_otp]
+  before_action :set_user, except: [:gallery, :otp, :request_otp, :validate_otp, :profile]
 
   def show
     @user = User.find(params[:id])
@@ -42,6 +42,12 @@ class UsersController < ApplicationController
     else
       redirect_to root_path, notice: "Your phone number successfully activated"
     end
+  end
+
+  def profile
+    @user = current_user
+    @photos = @user.photos.page(params[:page])
+    render "show"
   end
 
   private

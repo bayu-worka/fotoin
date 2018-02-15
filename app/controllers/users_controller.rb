@@ -3,7 +3,8 @@ class UsersController < ApplicationController
   before_action :set_user, except: [:gallery, :otp, :request_otp, :validate_otp]
 
   def show
-    @photos = current_user.photos.page(params[:page])
+    @user = User.find(params[:id])
+    @photos = @user.photos.page(params[:page])
   end
 
   def follow

@@ -9,6 +9,12 @@ section
       strong Description:
       = @photo.description
     p
+      strong Latest Month Like:
+      = @photo.get_latest_month_like_size
+    p
+      strong This Month Like:
+      = @photo.get_this_month_like_size
+    p
       strong User:
       = link_to @photo.user.email, user_path(@photo.user)
     p

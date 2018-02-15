@@ -36,4 +36,10 @@ class User < ApplicationRecord
     end
     self.save
   end
+
+  def add_point_last_month
+    photos.includes(:votes_for).each do |photo|
+      self.update(point: self.point + (photo.get_latest_month_like_size * 100))
+    end
+  end
 end

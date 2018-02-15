@@ -1,6 +1,7 @@
 section
   .container
     h2= @user.email
+    h4= "Point: #{@user.point}"
     p
       = "#{@user.followers_count} followers"
       br

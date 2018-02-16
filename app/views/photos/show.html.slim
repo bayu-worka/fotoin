@@ -20,6 +20,8 @@ section
     p
       strong Like:
       = @photo.get_likes.size
+    .fb-share-button data-turbolinks-no-cache="" data-href="#{request.original_url}" data-layout="button_count" data-mobile-iframe="true" data-size="small" 
+      a.fb-xfbml-parse-ignore href="https://www.facebook.com/sharer/sharer.php?u=#{request.original_url}&amp;src=sdkpreparse" target="_blank" Share
     p
       - if user_signed_in?
         - if current_user.voted_for?(@photo)
@@ -29,8 +31,8 @@ section
 
     - if user_signed_in?
       = render partial: "comments/template", locals: {commentable: @photo, new_comment: @new_comment}
-      - if current_user.eql?(@photo.user)
-        p    
-          => link_to 'Edit', edit_photo_path(@photo)
-          '|
-          =< link_to 'Back', photos_path
+      / - if current_user.eql?(@photo.user)
+      /   p    
+      /     => link_to 'Edit', edit_photo_path(@photo)
+      /     '|
+    =< link_to 'Back', moment_path(@photo.moment)

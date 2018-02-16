@@ -17,4 +17,5 @@
 #= require nprogress
 #= require nprogress-turbolinks
 #= require bootstrap-sprockets
+#= require cocoon
 #= require main

@@ -8,6 +8,6 @@
         a target="_blank" href="http://worka.id" Worka
 
 - if user_signed_in?
-  = render "index_signed_in_user"
+  = render partial: "index_signed_in_user", locals: {moments: @moments}
 - else
-  = render "index_unsigned_in_user"
+  = render partial: "index_unsigned_in_user", locals: {moments: @moments}

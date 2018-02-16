@@ -8,10 +8,16 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
   validates_presence_of :phone
   has_many :photos, dependent: :destroy
+  has_many :moments, dependent: :destroy
 
   def followed_photos
     following_ids = all_following.map(&:id)
     Photo.where(user_id: following_ids)
+  end
+
+  def followed_moments
+    following_ids = all_following.map(&:id)
+    Moment.where(user_id: following_ids)
   end
 
   def request_otp

@@ -2,13 +2,13 @@
   p.page-description.text-center Your Moments
   .tz-gallery
     .row
-      - @photos.each do |photo|
+      - @moments.each do |moment|
         .col-sm-6.col-md-4
           .thumbnail
-            = link_to photo_path(photo), class: "lightbox" do
-              = image_tag photo.image 
+            = link_to moment_path(moment), class: "lightbox" do
+              = image_tag moment.photos.first.image
             .caption
-              h3= photo.title
-              p= photo.description
-      = paginate @photos
-    = link_to "New Moment", new_photo_path
+              h3= moment.title
+              p= moment.description
+      = paginate @moments
+    = link_to "New Moment", new_moment_path

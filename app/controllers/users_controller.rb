@@ -4,7 +4,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @photos = @user.photos.page(params[:page])
+    @moments = @user.moments.page(params[:page])
   end
 
   def follow
@@ -24,7 +24,7 @@ class UsersController < ApplicationController
   end
 
   def gallery
-    @photos = current_user.photos.page(params[:page])
+    @moments = current_user.moments.page(params[:page])
   end
 
   def otp    

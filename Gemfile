@@ -44,6 +44,8 @@ gem 'acts_as_follower', github: 'tcocca/acts_as_follower', branch: 'master'
 gem 'httparty'
 gem 'sidekiq'
 gem "sidekiq-cron", "~> 0.6.3"
+gem "cocoon"
+gem 'meta-tags'
 
 # assets
 gem 'bootstrap-sass', '~> 3.3.7'

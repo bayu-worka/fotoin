@@ -1,0 +1,14 @@
+= simple_form_for(@moment) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :title
+    = f.input :description
+  h3 Photos
+  #photos
+    = f.simple_fields_for :photos do |photo|
+      = render 'photo_fields', f: photo
+    .links
+      = link_to_add_association 'add photo', f, :photos
+  .form-actions
+    = f.button :submit

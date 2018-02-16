@@ -1,0 +1,27 @@
+- set_meta_tags og: { title: @moment.title, type: 'website', url: request.original_url, description: @moment.description, image: @moment.photos.first.try(:image) }
+section
+  .container
+    h2= @moment.title
+    p#notice = notice
+    p
+      strong Description:
+      = @moment.description
+    p
+      strong User:
+      = link_to @moment.user.email, user_path(@moment.user)
+    - @moment.photos.each do |photo|
+      p
+        strong Image:
+        = link_to photo_path(photo) do
+          = image_tag(photo.image, class: "img-responsive")
+    
+    .fb-share-button data-turbolinks-no-cache="" data-href="#{request.original_url}" data-layout="button_count" data-mobile-iframe="true" data-size="small" 
+      a.fb-xfbml-parse-ignore href="https://www.facebook.com/sharer/sharer.php?u=#{request.original_url}&amp;src=sdkpreparse" target="_blank" Share
+
+
+
+    - if user_signed_in? && current_user.eql?(@moment.user)
+      p    
+        => link_to 'Edit', edit_moment_path(@moment)
+        '|
+        =< link_to 'Back', moments_path

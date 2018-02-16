@@ -1,0 +1,18 @@
+section
+  .container
+    h2 Gallery
+  .container.gallery-container
+    p.page-description.text-center
+    .tz-gallery
+      .row
+        - @moments.each do |moment|
+          .col-sm-6.col-md-4
+            .thumbnail
+              = link_to moment_path(moment), class: "lightbox" do
+                = image_tag moment.photos.first.image 
+              .caption
+                h3= moment.title
+                h3= link_to moment.user.email, user_path(moment.user)
+                p= moment.description
+        = paginate @moments
+      = link_to "New Moment", new_moment_path

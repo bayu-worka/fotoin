@@ -1,4 +1,4 @@
-- set_meta_tags og: { title: @moment.title, type: 'website', url: request.original_url, description: @moment.description, image: @moment.photos.first.try(:image) }
+- set_meta_tags og: { title: @moment.title, type: 'website', url: request.original_url, description: @moment.description, image: "#{request.protocol + request.host_with_port + @moment.photos.first.try(:image).try(:url)}" }
 section
   .container
     h2= @moment.title

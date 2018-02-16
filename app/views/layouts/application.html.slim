@@ -1,11 +1,10 @@
 doctype html
 html
   head
-    title Fotoin
     = csrf_meta_tags
+    = display_meta_tags site: 'Fotoin'
     meta charset="utf-8"
     meta content="IE=edge" http-equiv="X-UA-Compatible"
-    meta content="" name="description"
     meta content="width=device-width, initial-scale=1" name="viewport"
     meta content="all,follow" name="robots"
 
@@ -16,4 +15,43 @@ html
     p= notice
     = yield
     = render "layouts/footer"
+    #fb-root data-turbolinks-permanent=""
     = yield :javascript
+    
+    javascript:
+      (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = 'https://connect.facebook.net/id_ID/sdk.js#xfbml=1&autoLogAppEvents=1&version=v2.12&appId=220064208564406';
+        fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));
+
+      (function($) {
+        var fbRoot;
+
+        function saveFacebookRoot() {
+          if ($('#fb-root').length) {
+            fbRoot = $('#fb-root').detach();
+          }
+        };
+
+        function restoreFacebookRoot() {
+          if (fbRoot != null) {
+            if ($('#fb-root').length) {
+              $('#fb-root').replaceWith(fbRoot);
+            } else {
+              $('body').append(fbRoot);
+            }
+          }
+
+          if (typeof FB !== "undefined" && FB !== null) { // Instance of FacebookSDK
+            FB.XFBML.parse();
+          }
+        };
+
+        document.addEventListener('turbolinks:request-start', saveFacebookRoot)
+        document.addEventListener('turbolinks:load', restoreFacebookRoot)
+      }(jQuery));
+      
+

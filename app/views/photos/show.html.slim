@@ -29,8 +29,8 @@ section
 
     - if user_signed_in?
       = render partial: "comments/template", locals: {commentable: @photo, new_comment: @new_comment}
-      - if current_user.eql?(@photo.user)
-        p    
-          => link_to 'Edit', edit_photo_path(@photo)
-          '|
-          =< link_to 'Back', photos_path
+      / - if current_user.eql?(@photo.user)
+      /   p    
+      /     => link_to 'Edit', edit_photo_path(@photo)
+      /     '|
+    =< link_to 'Back', moment_path(@photo.moment)

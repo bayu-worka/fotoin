@@ -1,13 +1,13 @@
 section.background-gray-lightest
   .container
     .row
-      - @photos.each do |photo|
+      - moments.each do |moment|
         .col-sm-4
           .post
             .image
-              = link_to photo_path(photo) do
-                = image_tag(photo.image, class: "img-responsive")
+              = link_to moment_path(moment) do
+                = image_tag(moment.photos.first.image, class: "img-responsive")
             h3
-              = link_to photo.title, photo_path(photo)
-            p.post__intro= photo.description
-    = paginate(@photos)
+              = link_to moment.title, moment_path(moment)
+            p.post__intro= moment.description
+    = paginate(moments)

@@ -1,9 +1,10 @@
 Rails.application.routes.draw do
+  resources :moments
   require 'sidekiq/web'
   require 'sidekiq/cron/web'
 
   mount Sidekiq::Web => '/sidekiq'
-  resources :photos do
+  resources :photos, only: [:show] do
     member do
       get :like
       get :unlike

@@ -88,6 +88,7 @@ GEM
     childprocess (0.8.0)
       ffi (~> 1.0, >= 1.0.11)
     choice (0.2.0)
+    cocoon (1.2.11)
     coderay (1.1.2)
     coffee-rails (4.2.2)
       coffee-script (>= 2.2.0)
@@ -151,6 +152,8 @@ GEM
       nokogiri (>= 1.5.9)
     mail (2.7.0)
       mini_mime (>= 0.1.1)
+    meta-tags (2.7.1)
+      actionpack (>= 3.2.0, < 5.3)
     method_source (0.9.0)
     mime-types (3.1)
       mime-types-data (~> 3.2015)
@@ -297,6 +300,7 @@ DEPENDENCIES
   byebug
   capybara (~> 2.13)
   carrierwave (~> 1.0)
+  cocoon
   coffee-rails (~> 4.2)
   devise
   dotenv-rails
@@ -306,6 +310,7 @@ DEPENDENCIES
   kaminari
   letter_opener
   listen (>= 3.0.5, < 3.2)
+  meta-tags
   nprogress-rails
   pg (~> 0.21)
   puma (~> 3.7)

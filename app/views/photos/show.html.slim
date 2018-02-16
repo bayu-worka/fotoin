@@ -20,6 +20,8 @@ section
     p
       strong Like:
       = @photo.get_likes.size
+    .fb-share-button data-turbolinks-no-cache="" data-href="#{request.original_url}" data-layout="button_count" data-mobile-iframe="true" data-size="small" 
+      a.fb-xfbml-parse-ignore href="https://www.facebook.com/sharer/sharer.php?u=#{request.original_url}&amp;src=sdkpreparse" target="_blank" Share
     p
       - if user_signed_in?
         - if current_user.voted_for?(@photo)

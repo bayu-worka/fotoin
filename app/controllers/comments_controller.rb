@@ -28,6 +28,17 @@ class CommentsController < ApplicationController
   end
 
   def destroy
+    comment = @photo.comment_threads.find(params[:comment_id])
+    respond_to do |format|
+      if @photo.user.eql?(current_user) || comment.user.eql?(current_user)
+        comment.destroy
+        notice = "comment was successfully destroyed."
+      else
+        notice = "You don't have authorize"
+      end
+      format.html { redirect_to photo_url(@photo), notice: notice }
+      format.json { head :no_content }
+    end
   end
 
   private

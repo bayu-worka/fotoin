@@ -38,9 +38,13 @@ class Api::V1::PhotosController < Api::V1::ApiController
   end
 
   def destroy
-    comment = @current_user.comments.find_by(commentable_id: params[:id], id: params[:comment_id])
-    comment.destroy
-    render json: {message: "successfully destroy comment"}, status: :ok
+    comment = @photo.comment_threads.find(params[:comment_id])
+    if @photo.user.eql?(@current_user) || comment.user.eql?(@current_user)
+      comment.destroy
+      render json: {message: "successfully destroy comment"}, status: :ok
+    else
+      render json: {errors: {message: "You don't have authorize"}}, status: :unauthorized
+    end
   end
 
   private

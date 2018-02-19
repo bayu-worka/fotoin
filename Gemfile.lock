@@ -32,6 +32,11 @@ GEM
       erubi (~> 1.4)
       rails-dom-testing (~> 2.0)
       rails-html-sanitizer (~> 1.0, >= 1.0.3)
+    active_model_serializers (0.10.7)
+      actionpack (>= 4.1, < 6)
+      activemodel (>= 4.1, < 6)
+      case_transform (>= 0.2)
+      jsonapi-renderer (>= 0.1.1.beta1, < 0.3)
     activejob (5.1.4)
       activesupport (= 5.1.4)
       globalid (>= 0.3.6)
@@ -85,6 +90,8 @@ GEM
       activemodel (>= 4.0.0)
       activesupport (>= 4.0.0)
       mime-types (>= 1.16)
+    case_transform (0.2)
+      activesupport
     childprocess (0.8.0)
       ffi (~> 1.0, >= 1.0.11)
     choice (0.2.0)
@@ -127,6 +134,8 @@ GEM
     jbuilder (2.7.0)
       activesupport (>= 4.2.0)
       multi_json (>= 1.2)
+    jsonapi-renderer (0.2.0)
+    jwt (2.1.0)
     kaminari (1.1.1)
       activesupport (>= 4.1.0)
       kaminari-actionview (= 1.1.1)
@@ -172,6 +181,7 @@ GEM
     public_suffix (3.0.1)
     puma (3.11.2)
     rack (2.0.4)
+    rack-cors (1.0.2)
     rack-protection (2.0.0)
       rack
     rack-test (0.8.2)
@@ -290,6 +300,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  active_model_serializers (~> 0.10.0)
   acts_as_commentable_with_threading
   acts_as_follower!
   acts_as_votable (~> 0.11.1)
@@ -307,6 +318,7 @@ DEPENDENCIES
   font-awesome-sass (~> 5.0.6)
   httparty
   jbuilder (~> 2.5)
+  jwt
   kaminari
   letter_opener
   listen (>= 3.0.5, < 3.2)
@@ -314,6 +326,7 @@ DEPENDENCIES
   nprogress-rails
   pg (~> 0.21)
   puma (~> 3.7)
+  rack-cors
   rails (~> 5.1.4)
   rails-erd
   sass-rails (~> 5.0)

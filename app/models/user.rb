@@ -7,8 +7,12 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
   validates_presence_of :phone
-  has_many :photos, dependent: :destroy
-  has_many :moments, dependent: :destroy
+
+  with_options dependent: :destroy do |assoc|
+    assoc.has_many :photos
+    assoc.has_many :moments
+    assoc.has_many :comments
+  end
 
   def followed_photos
     following_ids = all_following.map(&:id)

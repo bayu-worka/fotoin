@@ -70,7 +70,7 @@ class MomentsController < ApplicationController
     end
 
     def set_moment_owned
-      @moment = current_user.find(params[:id])
+      @moment = current_user.moments.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

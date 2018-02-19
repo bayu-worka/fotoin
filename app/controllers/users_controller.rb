@@ -46,7 +46,7 @@ class UsersController < ApplicationController
 
   def profile
     @user = current_user
-    @photos = @user.photos.page(params[:page])
+    @moments = @user.moments.page(params[:page])
     render "show"
   end
 

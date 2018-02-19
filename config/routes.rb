@@ -9,7 +9,7 @@ Rails.application.routes.draw do
       get :like
       get :unlike
       post "comments", to: "comments#create", as: :comments
-      post "comments/:comment_id", to: "comments#reply", as: :comment_reply
+      # post "comments/:comment_id", to: "comments#reply", as: :comment_reply
       delete "comment", to: "comments#destroy", as: :comment
     end
   end
@@ -27,6 +27,42 @@ Rails.application.routes.draw do
     member do
       get :follow
       get :unfollow
+    end
+  end
+
+  namespace :api do
+    namespace :v1 do
+      resources :moments, except: [:new, :edit]
+
+      resources :photos, only: [:show] do
+        member do
+          get :like
+          get :unlike
+          post "comments", as: :comments
+          delete "comment/:comment_id", to: "photos#destroy", as: :comment
+          get :root_comments
+          get :check_like_status
+        end
+      end
+
+      resources :users, only: [:show] do
+        collection do
+          post :sign_up
+          post :sign_in
+          post :forgot_password
+          get :gallery
+          get :profile
+          get :request_otp
+          post :validate_otp
+        end
+
+        member do
+          get :moments
+          get :follow
+          get :unfollow
+          get :check_follow_status
+        end
+      end
     end
   end
 

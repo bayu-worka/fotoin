@@ -1,5 +1,5 @@
 class Api::V1::UsersController < Api::V1::ApiController
-  before_action :authenticate_request!, except: [:sign_in, :sign_up, :forgot_password, :show, :moments]
+  before_action :authenticate_request!, except: [:sign_in, :sign_up, :forgot_password, :show, :moments, :check_token]
   before_action :set_user_with_child, only: [:show, :moments]
   before_action :set_user, only: [:follow, :unfollow, :check_follow_status]
 
@@ -77,6 +77,28 @@ class Api::V1::UsersController < Api::V1::ApiController
     else
       render json: {message: "Your phone number successfully activated"}, status: :ok
     end
+  end
+
+  def check_token
+    auth_header = params[:token]
+    token = auth_header.split(' ').last
+    begin
+      payload = JsonWebToken.decode(token)[0]
+      token_status = JsonWebToken.valid_payload(payload)
+    rescue
+      token_status = false
+    end
+
+    if token_status
+      render json: {token_status: "valid"}, status: :ok
+    else
+      render json: {token_status: "invalid"}, status: :ok
+    end
+  end
+
+  def timeline
+    moments = @current_user.followed_moments.page(params[:page])
+    render json: moments, meta: pagination_dict(moments), status: :ok
   end
 
   private

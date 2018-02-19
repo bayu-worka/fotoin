@@ -54,6 +54,8 @@ Rails.application.routes.draw do
           get :profile
           get :request_otp
           post :validate_otp
+          post :check_token
+          get :timeline
         end
 
         member do

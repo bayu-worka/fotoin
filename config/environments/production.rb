@@ -88,4 +88,27 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  config.action_mailer.default_url_options = { :host => "fotoin.herokuapp.com" }
+  # Do not dump schema after migrations.
+  config.active_record.dump_schema_after_migration = false
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.asset_host = 'https://fotoin.herokuapp.com'
+  config.action_mailer.smtp_settings = {
+    :user_name => ENV['SENDGRID_USERNAME'],
+    :password => ENV['SENDGRID_PASSWORD'],
+    :domain => 'fotoin.herokuapp.com',
+    :address => 'smtp.sendgrid.net',
+    :port => 587,
+    :authentication => :plain,
+    :enable_starttls_auto => true
+  }
+
+  config.middleware.use ExceptionNotification::Rack,
+  :email => {
+    :email_prefix => "[C23-Notofier] ",
+    :sender_address => %{"notifier" <admin@c23.herokuapp.com>},
+    :exception_recipients => %w{bayu@worka.id}
+  }
 end

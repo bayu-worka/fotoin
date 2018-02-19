@@ -1,4 +1,4 @@
-- set_meta_tags og: { title: @photo.title, type: 'website', url: request.original_url, description: @photo.description, image: "#{request.protocol + request.host_with_port + @photo.try(:image).try(:url)}" }
+- set_meta_tags og: { title: @photo.title, type: 'website', url: request.original_url, description: @photo.description, image: "#{@photo.try(:image).try(:url)}" }
 section
   .container
     h2= @photo.title

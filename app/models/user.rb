@@ -41,7 +41,7 @@ class User < ApplicationRecord
 
   def generate_token_otp
     self.token_otp = loop do
-      random_token = SecureRandom.hex
+      random_token = SecureRandom.hex(6)
       break random_token unless User.exists?(token_otp: random_token)
     end
     self.save

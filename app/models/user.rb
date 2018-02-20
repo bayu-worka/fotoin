@@ -49,7 +49,15 @@ class User < ApplicationRecord
 
   def add_point_last_month
     photos.includes(:votes_for).each do |photo|
-      self.update(point: self.point + (photo.get_latest_month_like_size * 100))
+      point_added = photo.get_latest_month_like_size * 100
+      self.update(point: self.point + point_added)
+      self.send_sms("Selamat anda mendapatkan #{point_added} point dari Fotoin, ayo upload momen mu dan bagikan untuk dapat lebih banyak point") if point_added > 0
     end
+  end
+
+  def send_sms(message)
+    sms_otp = SmsOtp.new
+    sms_otp.get_access_token
+    sms_otp.send_sms(self.phone, message)
   end
 end

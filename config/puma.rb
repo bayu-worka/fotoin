@@ -24,13 +24,10 @@ environment ENV.fetch("RAILS_ENV") { "development" }
 # workers ENV.fetch("WEB_CONCURRENCY") { 2 }
 preload_app!
 
-# on_worker_boot do
-#   @sidekiq_pid ||= spawn('bundle exec sidekiq -t 25')
-#   ActiveRecord::Base.establish_connection if defined?(ActiveRecord)
-# end
-
-before_fork do |server, worker|
-  @sidekiq_pid ||= spawn("bundle exec sidekiq -c 2")
+on_worker_boot do
+  # @sidekiq_pid ||= spawn('bundle exec sidekiq -t 25')
+  @sidekiq_pid ||= spawn('bundle exec sidekiq -c 2 -q default -q mailers')
+  ActiveRecord::Base.establish_connection if defined?(ActiveRecord)
 end
 
 on_restart do

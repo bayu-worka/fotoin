@@ -22,7 +22,7 @@ environment ENV.fetch("RAILS_ENV") { "development" }
 # processes).
 #
 # workers ENV.fetch("WEB_CONCURRENCY") { 2 }
-preload_app!
+# preload_app!
 
 on_worker_boot do
   # @sidekiq_pid ||= spawn('bundle exec sidekiq -t 25')

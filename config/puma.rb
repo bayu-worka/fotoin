@@ -26,7 +26,7 @@ preload_app!
 
 on_worker_boot do
   # @sidekiq_pid ||= spawn('bundle exec sidekiq -t 25')
-  @sidekiq_pid ||= spawn('bundle exec sidekiq -c 2 -q default -q mailers')
+  @sidekiq_pid ||= spawn('bundle exec sidekiq -c 2')
   ActiveRecord::Base.establish_connection if defined?(ActiveRecord)
 end
 

@@ -50,4 +50,20 @@ class SmsOtp
       @error
     end
   end
+
+  def send_sms(phone_number, message)
+    if @access_token
+      params = URI.encode_www_form({msisdn: phone_number, content: message})
+      response = HTTParty.post("https://api.mainapi.net/smsnotification/1.0.0/messages", 
+                                :body => params,
+                                :headers => { 'Content-Type' => 'application/x-www-form-urlencoded', 'Authorization' => "Bearer #{@access_token}" } )
+      if response.parsed_response["status"].eql?("SUCCESS")
+        @message_id = response.parsed_response["msgid"]
+      else
+        @error = response.parsed_response["message"]
+      end
+    else
+      @error
+    end
+  end
 end

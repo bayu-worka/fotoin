@@ -112,3 +112,5 @@ Rails.application.configure do
     :exception_recipients => %w{bayu@worka.id}
   }
 end
+
+Rails.application.routes.default_url_options[:host]= 'http://fotoin.herokuapp.com'

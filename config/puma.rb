@@ -24,15 +24,15 @@ environment ENV.fetch("RAILS_ENV") { "development" }
 # workers ENV.fetch("WEB_CONCURRENCY") { 2 }
 # preload_app!
 
-on_worker_boot do
-  # @sidekiq_pid ||= spawn('bundle exec sidekiq -t 25')
-  @sidekiq_pid ||= spawn('bundle exec sidekiq -c 2')
-  ActiveRecord::Base.establish_connection if defined?(ActiveRecord)
-end
+# on_worker_boot do
+#   # @sidekiq_pid ||= spawn('bundle exec sidekiq -t 25')
+#   @sidekiq_pid ||= spawn('bundle exec sidekiq -c 2')
+#   ActiveRecord::Base.establish_connection if defined?(ActiveRecord)
+# end
 
-on_restart do
-  Sidekiq.redis.shutdown { |conn| conn.close }
-end
+# on_restart do
+#   Sidekiq.redis.shutdown { |conn| conn.close }
+# end
 # Use the `preload_app!` method when specifying a `workers` number.
 # This directive tells Puma to first boot the application and load code
 # before forking the application. This takes advantage of Copy On Write

@@ -60,4 +60,15 @@ class User < ApplicationRecord
     sms_otp.get_access_token
     sms_otp.send_sms(self.phone, message)
   end
+
+  def register_tmoney(pwd, full_name)
+    tmoney = Tmoney.new
+    tmoney.sign_up(self.email, pwd, full_name, self.phone)
+    if tmoney.instance_variable_get(:@register_status)
+      tmoney.email_verification
+      tmoney.instance_variable_get(:@message)
+    else
+      tmoney.instance_variable_get(:@error)["resultDesc"]
+    end
+  end
 end

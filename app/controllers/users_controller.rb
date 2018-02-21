@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!, except: [:show]
-  before_action :set_user, except: [:gallery, :otp, :request_otp, :validate_otp, :profile]
+  before_action :set_user, except: [:gallery, :otp, :request_otp, :validate_otp, :profile, :register_tmoney, :submit_register_tmoney]
 
   def show
     @user = User.find(params[:id])
@@ -48,6 +48,13 @@ class UsersController < ApplicationController
     @user = current_user
     @moments = @user.moments.page(params[:page])
     render "show"
+  end
+
+  def register_tmoney; end
+
+  def submit_register_tmoney
+    notice = current_user.register_tmoney(params[:user][:pwd], params[:user][:full_name])
+    redirect_to profile_users_path, notice: notice
   end
 
   private

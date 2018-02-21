@@ -99,7 +99,22 @@ class Tmoney
     @signature = OpenSSL::HMAC.hexdigest("SHA256", ENV["TMONEY_API_KEY"], data)
   end
   
-  def transfer_p2p()
-    
+  def transfer_p2p(transaction_type=1, destination_account, amount)
+    if @access_token
+      params = URI.encode_www_form({transactionType: transaction_type, terminal: ENV["TMONEY_TERMINAL"], apiKey: ENV["TMONEY_API_KEY"], idTmoney: @id_tmoney, idFusion: @id_fusion, token: @token, destAccount: destination_account, amount: amount, pin: ENV["TMONEY_PIN"]})
+      result = HTTParty.post("#{ENV['TMONEY_ENDPOINT']}/transfer-p2p", 
+                            :body => params,
+                            :headers => { 'Content-Type' => 'application/x-www-form-urlencoded', 'Authorization' => "Bearer #{@access_token}" } )
+      # if result.parsed_response["login"]
+      #   @sessionId = result.parsed_response["user"]["sessionId"]
+      #   @id_tmoney = result.parsed_response["user"]["idTmoney"]
+      #   @id_fusion = result.parsed_response["user"]["idFusion"]
+      #   @token = result.parsed_response["user"]["token"]
+      # else
+      #   @error = result.parsed_response["resultDesc"]
+      # end
+    else
+      @error
+    end   
   end
 end

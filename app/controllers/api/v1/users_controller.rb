@@ -101,6 +101,11 @@ class Api::V1::UsersController < Api::V1::ApiController
     render json: moments, meta: pagination_dict(moments), status: :ok
   end
 
+  def submit_register_tmoney
+    response = current_user.register_tmoney(params[:user][:pwd], params[:user][:full_name])
+    render json: {message: response}
+  end
+
   private
   def user_params
     params.require(:user).permit(:email, :password, :phone)

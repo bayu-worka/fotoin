@@ -1,4 +1,6 @@
 class Api::V1::ApiController < ActionController::API
+  include Swagger::Docs::ImpotentMethods
+  respond_to :json
 
   def pagination_dict(collection)
     {

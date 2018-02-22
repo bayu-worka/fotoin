@@ -13,7 +13,7 @@ class Api::V1::MomentsController < Api::V1::ApiController
   # GET /moments/1
   # GET /moments/1.json
   def show
-    render json: @moment
+    render json: @moment, serializer: MomentTimelineSerializer, scope: {'current_user': @current_user}
   end
 
   # POST /moments

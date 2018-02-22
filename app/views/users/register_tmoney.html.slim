@@ -1,0 +1,21 @@
+section
+  .container
+    h2= current_user.email
+    = form_tag submit_register_tmoney_users_path do
+      .form-inputs
+        .form-group
+          = label_tag "user[full_name]", "Nama Lengkap"
+          = text_field_tag 'user[full_name]', nil, class: "form-control"
+        .form-group
+          = label_tag "user[pwd]", "Password"
+          = password_field_tag 'user[pwd]', nil, class: "form-control"
+        .form-group
+          = label_tag "user[email]", "Email"
+          = text_field_tag 'user[email]', current_user.email, disabled: true, class: "form-control"
+        .form-group
+          = label_tag "user[phone]", "Phone"
+          = text_field_tag 'user[phone]', current_user.phone, disabled: true, class: "form-control"
+
+      .form-actions
+        = submit_tag "Daftar"
+

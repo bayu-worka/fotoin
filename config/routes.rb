@@ -22,6 +22,8 @@ Rails.application.routes.draw do
       get :request_otp
       post :validate_otp
       get :profile
+      get :register_tmoney
+      post :submit_register_tmoney
     end
 
     member do
@@ -56,6 +58,7 @@ Rails.application.routes.draw do
           post :validate_otp
           post :check_token
           get :timeline
+          post :submit_register_tmoney
         end
 
         member do

@@ -18,7 +18,7 @@ class PhotoShowSerializer < ActiveModel::Serializer
   end
 
   def like_status
-    if scope
+    if scope && scope[:current_user]
       scope[:current_user].voted_for?(object)
     else
       false

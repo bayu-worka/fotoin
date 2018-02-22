@@ -1,4 +1,4 @@
-class MomentSerializer < ActiveModel::Serializer
+class MomentTimelineSerializer < ActiveModel::Serializer
   attributes :id, :title, :description, :user_id, :user_email, :share_url, :total_likes, :total_comments
 
   has_many :photos, serializer: PhotoShowSerializer

@@ -5,4 +5,11 @@ class Moment < ApplicationRecord
 
   validates_presence_of :title, :photos
 
+  def root_comments
+    Comment.where("commentable_id IN (:photo_ids) AND commentable_type = 'Photo' AND parent_id IS :nil", {photo_ids: photo_ids, nil: nil})
+  end
+
+  def vote_for
+    ActsAsVotable::Vote.where("votable_id IN (:photo_ids) AND votable_type = 'Photo'", {photo_ids: photo_ids})
+  end
 end

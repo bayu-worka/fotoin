@@ -1,7 +1,8 @@
 class Api::V1::MomentsController < Api::V1::ApiController
-  before_action :authenticate_request!, only: [:create, :update, :destroy]
-  before_action :set_moment, only: [:show]
+  before_action :authenticate_request!, only: [:create, :update, :destroy, :make_donation]
+  before_action :set_moment, only: [:show, :make_donation]
   before_action :set_moment_owned, only: [:edit, :update, :destroy]
+  before_action :validate_donation_type_moment, only: [:donation, :make_donation]
 
   # GET /moments
   # GET /moments.json
@@ -45,6 +46,19 @@ class Api::V1::MomentsController < Api::V1::ApiController
     render json: {message: "Moment successfully destroy"}, status: :ok
   end
 
+  def make_donation
+    @donation = @moment.donations.new(donation_params.merge(user: @current_user))
+    if @donation.save
+      render json: @donation, status: :ok
+    else
+      render json: {errors: @donation.errors}, status: :unprocessable_entity
+    end
+  end
+
+  def donation_params
+    params.require(:donation).permit(:amount, :tmoney_email, :tmoney_password)
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_moment
@@ -58,5 +72,9 @@ class Api::V1::MomentsController < Api::V1::ApiController
     # Never trust parameters from the scary internet, only allow the white list through.
     def moment_params
       params.require(:moment).permit(:title, :description, :moment_type, photos_attributes: [:id, :description, :title, :image, :_destroy])
+    end
+
+    def validate_donation_type_moment
+      render json: {errors: {code: 401, message: "Hanya Moment bertipe Donasi yang dapat menerima donasi"}}, status: :bad_request unless @moment.moment_type.eql?("donation")
     end
 end

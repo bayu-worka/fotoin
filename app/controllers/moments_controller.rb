@@ -97,6 +97,6 @@ class MomentsController < ApplicationController
     end
 
     def validate_donation_type_moment
-      redirect_to moment_path(@moment), notice: "Anda telah berhasil melakukan donasi" unless @moment.moment_type.eql?("donation")
+      redirect_to moment_path(@moment), notice: "Hanya Moment bertipe Donasi yang dapat menerima donasi" unless @moment.moment_type.eql?("donation")
     end
 end

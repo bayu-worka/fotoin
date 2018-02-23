@@ -1,7 +1,8 @@
 class MomentsController < ApplicationController
-  before_action :set_moment, only: [:show]
+  before_action :set_moment, only: [:show, :donation, :make_donation]
   before_action :set_moment_owned, only: [:edit, :update, :destroy]
-  before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
+  before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy, :make_donation, :donation]
+  before_action :validate_donation_type_moment, only: [:donation, :make_donation]
 
   # GET /moments
   # GET /moments.json
@@ -63,6 +64,19 @@ class MomentsController < ApplicationController
     end
   end
 
+  def donation
+    @donation = @moment.donations.new
+  end
+
+  def make_donation
+    @donation = @moment.donations.new(donation_params.merge(user: current_user))
+    if @donation.save
+      redirect_to moment_path(@moment), notice: "Anda telah berhasil melakukan donasi"
+    else
+      render :donation
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_moment
@@ -76,5 +90,13 @@ class MomentsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def moment_params
       params.require(:moment).permit(:title, :description, :moment_type, photos_attributes: [:id, :description, :title, :image, :_destroy])
+    end
+
+    def donation_params
+      params.require(:donation).permit(:amount, :tmoney_email, :tmoney_password)
+    end
+
+    def validate_donation_type_moment
+      redirect_to moment_path(@moment), notice: "Anda telah berhasil melakukan donasi" unless @moment.moment_type.eql?("donation")
     end
 end

@@ -12,6 +12,7 @@ class User < ApplicationRecord
     assoc.has_many :photos
     assoc.has_many :moments
     assoc.has_many :comments
+    assoc.has_many :donations
   end
 
   def followed_photos

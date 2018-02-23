@@ -81,7 +81,7 @@ class Tmoney
                             :headers => { 'Content-Type' => 'application/x-www-form-urlencoded', 'Authorization' => "Bearer #{@access_token}" } )
 
       if result.parsed_response["login"]
-        @sessionId = result.parsed_response["user"]["sessionId"]
+        @session_id = result.parsed_response["user"]["sessionId"]
         @id_tmoney = result.parsed_response["user"]["idTmoney"]
         @id_fusion = result.parsed_response["user"]["idFusion"]
         @token = result.parsed_response["user"]["token"]

@@ -71,4 +71,19 @@ class User < ApplicationRecord
       tmoney.instance_variable_get(:@error)["resultDesc"]
     end
   end
+
+  def redeem_tmoney(redeem_point)
+    begin
+      redeem_point = redeem_point.to_i
+      if redeem_point <= point
+        update(point: point - redeem_point)
+        send_sms("Selamat anda berhasil menukar #{redeem_point} menjadi balance tmoney")
+        true
+      else
+        false
+      end
+    rescue
+      false
+    end
+  end
 end

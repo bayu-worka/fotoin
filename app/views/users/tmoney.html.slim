@@ -1,0 +1,9 @@
+section
+  .container
+    h2 Redem Tmoney
+    p= "Point anda #{current_user.point}"
+    = form_tag redeem_tmoney_users_path do
+      .form-inputs
+        = number_field_tag :point, params[:point], placeholder: "Masukkan Point yg ingin anda tukar"
+      .form-actions
+        = submit_tag "Submit"

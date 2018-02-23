@@ -24,6 +24,9 @@ Rails.application.routes.draw do
       get :profile
       get :register_tmoney
       post :submit_register_tmoney
+      get :redeem_point
+      get :tmoney
+      post :redeem_tmoney
     end
 
     member do

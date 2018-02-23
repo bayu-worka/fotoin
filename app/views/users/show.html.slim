@@ -3,6 +3,8 @@ section
     h2= @user.email
     - if current_user.eql?(@user)
       = link_to "Register Tmoney", register_tmoney_users_path
+      br
+      = link_to "Redeem Point", redeem_point_users_path
     h4= "Point: #{@user.point}"
     p
       = "#{@user.followers_count} followers"

@@ -97,7 +97,11 @@ class Api::V1::UsersController < Api::V1::ApiController
   end
 
   def timeline
-    moments = @current_user.followed_moments.page(params[:page])
+    moments = if params[:donation]
+      @current_user.followed_moments.donation.page(params[:page])
+    else
+      @current_user.followed_moments.page(params[:page])
+    end
     render json: moments, each_serializer: MomentTimelineSerializer, scope: {'current_user': @current_user}, meta: pagination_dict(moments), status: :ok
   end
 

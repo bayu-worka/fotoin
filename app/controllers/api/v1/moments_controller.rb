@@ -57,6 +57,6 @@ class Api::V1::MomentsController < Api::V1::ApiController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def moment_params
-      params.require(:moment).permit(:title, :description, photos_attributes: [:id, :description, :title, :image, :_destroy])
+      params.require(:moment).permit(:title, :description, :moment_type, photos_attributes: [:id, :description, :title, :image, :_destroy])
     end
 end

@@ -1,5 +1,5 @@
 class MomentSerializer < ActiveModel::Serializer
-  attributes :id, :title, :description, :user_id, :user_email, :share_url, :total_likes, :total_comments
+  attributes :id, :title, :description, :user_id, :user_email, :share_url, :total_likes, :total_comments, :moment_type
 
   has_many :photos, serializer: PhotoShowSerializer
 

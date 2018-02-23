@@ -9,7 +9,7 @@ class Api::V1::UsersController < Api::V1::ApiController
       auth_token = JsonWebToken.encode({email: user.email, id: user.id})
       render json: {auth_token: auth_token[:token], expire: auth_token[:expire]}, status: :ok
     else
-      render json: {errors: {message: 'Invalid code / password'}}, status: :unauthorized
+      render json: {errors: {code: 801, message: 'Invalid code / password'}}, status: :unauthorized
     end
   end
 

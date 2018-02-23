@@ -23,7 +23,7 @@ class Api::V1::ApiController < ActionController::API
 
   # Returns 401 response. To handle malformed / invalid requests.
   def invalid_authentication
-    render json: {errors: {message: "You need to sign in"}}, status: :unauthorized
+    render json: {errors: {code: 401, message: "You need to sign in"}}, status: :unauthorized
   end
 
   private

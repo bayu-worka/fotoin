@@ -43,7 +43,7 @@ class Api::V1::PhotosController < Api::V1::ApiController
       comment.destroy
       render json: {message: "successfully destroy comment"}, status: :ok
     else
-      render json: {errors: {message: "You don't have authorize"}}, status: :unauthorized
+      render json: {errors: {code: 401, message: "You don't have authorize"}}, status: :unauthorized
     end
   end
 

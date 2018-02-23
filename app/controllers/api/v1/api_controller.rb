@@ -41,7 +41,7 @@ class Api::V1::ApiController < ActionController::API
     @current_user = User.find(payload[0]['id']) rescue nil
 
     if @current_user && !@current_user.otp_status && !action_name.include?("otp")
-      render json: {errors: {message: "You need to validate your mobile phone number"}}, status: :unauthorized
+      render json: {errors: {code: 800, message: "You need to validate your mobile phone number"}}, status: :unauthorized
     end
   end
 end

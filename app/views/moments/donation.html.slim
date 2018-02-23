@@ -1,0 +1,10 @@
+section
+  .container
+    h2 Donation
+    = simple_form_for @donation, url: make_donation_moment_path(@moment), method: :post do |f|
+      .form-inputs
+        = f.input :amount
+        = f.input :tmoney_email
+        = f.input :tmoney_password
+      .form-actions
+        = f.button :submit

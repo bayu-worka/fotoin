@@ -1,5 +1,9 @@
 class Moment < ApplicationRecord
   has_many :photos, inverse_of: :moment, dependent: :destroy
+  with_options dependent: :destroy do |assoc|
+    assoc.has_many :donations
+  end
+
   accepts_nested_attributes_for :photos, reject_if: :all_blank, allow_destroy: true
   belongs_to :user
 
@@ -12,5 +16,9 @@ class Moment < ApplicationRecord
 
   def vote_for
     ActsAsVotable::Vote.where("votable_id IN (:photo_ids) AND votable_type = 'Photo'", {photo_ids: photo_ids})
+  end
+
+  def total_donation
+    donations.sum(&:amount)
   end
 end

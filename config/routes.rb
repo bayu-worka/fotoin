@@ -1,5 +1,11 @@
 Rails.application.routes.draw do
-  resources :moments
+  resources :moments do
+    member do
+      get :donation
+      post :make_donation
+    end
+  end
+
   require 'sidekiq/web'
   require 'sidekiq/cron/web'
 

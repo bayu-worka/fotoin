@@ -10,6 +10,12 @@ section
       strong Moment Type:
       = @moment.moment_type
     p
+      strong Total Donation:
+      = currency_format(@moment.total_donation)
+      - if user_signed_in?
+        br
+        = link_to "Donate", donation_moment_path(@moment)
+    p
       strong User:
       = link_to @moment.user.email, user_path(@moment.user)
     - @moment.photos.each do |photo|

@@ -73,9 +73,9 @@ class Api::V1::UsersController < Api::V1::ApiController
   def validate_otp
     response = @current_user.validate_otp(params[:otp])
     if response.instance_variable_get(:@error)
-      render json: {errors: {message: response.instance_variable_get(:@error)}}, status: :ok
+      render json: {errors: {code: 401, message: response.instance_variable_get(:@error)}}, status: :ok
     else
-      render json: {errors: {code: 401, message: "You need to validate your mobile phone number"}}, status: :ok
+      render json: {message: "Validate success"}, status: :ok
     end
   end
 
@@ -104,6 +104,14 @@ class Api::V1::UsersController < Api::V1::ApiController
   def submit_register_tmoney
     response = current_user.register_tmoney(params[:user][:pwd], params[:user][:full_name])
     render json: {message: response}
+  end
+
+  def redeem_tmoney
+    if @current_user.redeem_tmoney(params[:point])
+      render json: {message: "Penukaran point berhasil"}
+    else
+      render json: {errors: {code: 400, message: "Penukaran point gagal"}}, status: :bad_request
+    end
   end
 
   private

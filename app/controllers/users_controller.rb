@@ -67,7 +67,7 @@ class UsersController < ApplicationController
     else
       redirect_to tmoney_users_path(point: params[:point]), notice: "Penukaran point gagal"
     end
-  end  
+  end
 
   private
   def set_user

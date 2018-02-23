@@ -62,6 +62,7 @@ Rails.application.routes.draw do
           post :check_token
           get :timeline
           post :submit_register_tmoney
+          post :redeem_tmoney
         end
 
         member do

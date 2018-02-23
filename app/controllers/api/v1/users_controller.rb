@@ -75,7 +75,7 @@ class Api::V1::UsersController < Api::V1::ApiController
     if response.instance_variable_get(:@error)
       render json: {errors: {message: response.instance_variable_get(:@error)}}, status: :ok
     else
-      render json: {message: "Your phone number successfully activated"}, status: :ok
+      render json: {errors: {code: 401, message: "You need to validate your mobile phone number"}}, status: :ok
     end
   end
 

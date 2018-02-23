@@ -43,6 +43,8 @@ class SmsOtp
                                 :headers => { 'Content-Type' => 'application/x-www-form-urlencoded', 'Authorization' => "Bearer #{@access_token}" } )
       if response.parsed_response["status"]
         @validate_status = true
+      elsif token_otp.nil?
+        @error = "Harap melakukan request otp terlebih dahulu"  
       else
         @error = response.parsed_response["message"]
       end

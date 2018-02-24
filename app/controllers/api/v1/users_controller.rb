@@ -57,8 +57,9 @@ class Api::V1::UsersController < Api::V1::ApiController
   end
 
   def gallery
-    moments = @current_user.moments.page(params[:page])
-    render json: moments, meta: pagination_dict(moments), status: :ok
+    # moments = @current_user.moments.page(params[:page])
+    # render json: moments, meta: pagination_dict(moments), status: :ok
+    render json: @current_user, include: ['moments.photos'], status: :ok
   end
 
   def profile

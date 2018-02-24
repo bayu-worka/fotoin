@@ -3,6 +3,8 @@ Rails.application.routes.draw do
     member do
       get :donation
       post :make_donation
+      get :buy
+      post :pay
     end
   end
 
@@ -46,6 +48,7 @@ Rails.application.routes.draw do
       resources :moments, except: [:new, :edit] do
         member do
           post :make_donation
+          post :pay
         end
       end
 

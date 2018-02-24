@@ -1,0 +1,10 @@
+section
+  .container
+    h2= "Buy #{@moment.title}"
+    p= "Price: #{currency_format(@moment.price)}"
+    = simple_form_for @order, url: pay_moment_path(@moment), method: :post do |f|
+      .form-inputs
+        = f.input :tmoney_email
+        = f.input :tmoney_password
+      .form-actions
+        = f.button :submit

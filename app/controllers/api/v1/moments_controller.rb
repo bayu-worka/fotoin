@@ -1,6 +1,6 @@
 class Api::V1::MomentsController < Api::V1::ApiController
-  before_action :authenticate_request!, only: [:create, :update, :destroy, :make_donation]
-  before_action :set_moment, only: [:show, :make_donation]
+  before_action :authenticate_request!, only: [:create, :update, :destroy, :make_donation, :pay]
+  before_action :set_moment, only: [:show, :make_donation, :pay]
   before_action :set_moment_owned, only: [:edit, :update, :destroy]
   before_action :validate_donation_type_moment, only: [:donation, :make_donation]
 
@@ -96,6 +96,22 @@ class Api::V1::MomentsController < Api::V1::ApiController
     end
   end
 
+  swagger_api :pay do
+    summary 'make payment for Moment merch'
+    param :path, :id, :string, :required, "Moment Id"
+    param :header, 'Authorization', :string, :required, 'Authentication token'
+    param :form, "order[tmoney_email]", :string, :required, "tmoney email"
+    param :form, "order[tmoney_password]", :string, :required, "tmoney password"
+  end
+  def pay
+    @order = @moment.orders.new(order_params.merge(user: @current_user))
+    if @order.save
+      render json: @order, status: :ok
+    else
+      render json: {errors: @order.errors}, status: :unprocessable_entity
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_moment
@@ -108,11 +124,15 @@ class Api::V1::MomentsController < Api::V1::ApiController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def moment_params
-      params.require(:moment).permit(:title, :description, :moment_type, photos_attributes: [:id, :description, :title, :image, :_destroy])
+      params.require(:moment).permit(:title, :description, :moment_type, :price, photos_attributes: [:id, :description, :title, :image, :_destroy])
     end
 
     def donation_params
       params.require(:donation).permit(:amount, :tmoney_email, :tmoney_password)
+    end
+
+    def order_params
+      params.require(:order).permit(:tmoney_email, :tmoney_password)
     end
 
     def validate_donation_type_moment

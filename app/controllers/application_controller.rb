@@ -5,8 +5,8 @@ class ApplicationController < ActionController::Base
 
   protected
   def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:account_update, keys: [:phone])
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:phone])
+    devise_parameter_sanitizer.permit(:account_update, keys: [:phone, :address])
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:phone, :address])
   end
 
   def authenticate_otp

@@ -3,12 +3,15 @@ class Moment < ApplicationRecord
   has_many :photos, inverse_of: :moment, dependent: :destroy
   with_options dependent: :destroy do |assoc|
     assoc.has_many :donations
+    assoc.has_many :orders
   end
 
   accepts_nested_attributes_for :photos, reject_if: :all_blank, allow_destroy: true
   belongs_to :user
 
   validates_presence_of :title, :photos, :moment_type
+  validates_presence_of :price, if: :merch?
+
   enum moment_type: [:normal, :donation, :merch]
   
   def root_comments

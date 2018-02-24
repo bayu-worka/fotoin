@@ -26,6 +26,7 @@ class Photo < ApplicationRecord
 
   def add_point_to_owner
     user.update(point: user.point + 1)
+    user.send_sms("selamat anda mendapatkan 1 point dari Fotoin untuk Foto dari moment #{moment.title}")
   end
 
   private

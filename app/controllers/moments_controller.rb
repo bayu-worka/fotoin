@@ -1,7 +1,7 @@
 class MomentsController < ApplicationController
-  before_action :set_moment, only: [:show, :donation, :make_donation]
+  before_action :set_moment, only: [:show, :donation, :make_donation, :buy, :pay]
   before_action :set_moment_owned, only: [:edit, :update, :destroy]
-  before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy, :make_donation, :donation]
+  before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy, :make_donation, :donation, :buy, :pay]
   before_action :validate_donation_type_moment, only: [:donation, :make_donation]
 
   # GET /moments
@@ -77,6 +77,19 @@ class MomentsController < ApplicationController
     end
   end
 
+  def buy
+    @order = @moment.orders.new
+  end
+
+  def pay
+    @order = @moment.orders.new(order_params.merge(user: current_user))
+    if @order.save
+      redirect_to moment_path(@moment), notice: "Anda telah berhasil melakukan pembelian"
+    else
+      render :buy
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_moment
@@ -89,11 +102,15 @@ class MomentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def moment_params
-      params.require(:moment).permit(:title, :description, :moment_type, photos_attributes: [:id, :description, :title, :image, :_destroy])
+      params.require(:moment).permit(:title, :description, :moment_type, :price, photos_attributes: [:id, :description, :title, :image, :_destroy])
     end
 
     def donation_params
       params.require(:donation).permit(:amount, :tmoney_email, :tmoney_password)
+    end
+
+    def order_params
+      params.require(:order).permit(:tmoney_email, :tmoney_password)
     end
 
     def validate_donation_type_moment

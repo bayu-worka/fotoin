@@ -6,13 +6,14 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
-  validates_presence_of :phone
+  validates_presence_of :phone, :address
 
   with_options dependent: :destroy do |assoc|
     assoc.has_many :photos
     assoc.has_many :moments
     assoc.has_many :comments
     assoc.has_many :donations
+    assoc.has_many :orders
   end
 
   def followed_photos

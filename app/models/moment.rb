@@ -22,6 +22,10 @@ class Moment < ApplicationRecord
     ActsAsVotable::Vote.where("votable_id IN (:photo_ids) AND votable_type = 'Photo'", {photo_ids: photo_ids})
   end
 
+  def self.payable
+    where("moment_type = 1 OR moment_type = 2")
+  end
+
   def total_donation
     donations.sum(&:amount)
   end

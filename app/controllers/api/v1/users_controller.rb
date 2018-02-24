@@ -175,8 +175,8 @@ class Api::V1::UsersController < Api::V1::ApiController
     param :header, 'Authorization', :string, :required, 'Authentication token'
   end
   def timeline
-    moments = if params[:donation]
-      @current_user.followed_moments.donation.page(params[:page])
+    moments = if params[:payable]
+      @current_user.followed_moments.payable.page(params[:page])
     else
       @current_user.followed_moments.page(params[:page])
     end

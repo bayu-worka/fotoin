@@ -77,9 +77,18 @@ class User < ApplicationRecord
     begin
       redeem_point = redeem_point.to_i
       if redeem_point <= point
-        update(point: point - redeem_point)
-        send_sms("Selamat anda berhasil menukar #{redeem_point} menjadi balance tmoney")
-        true
+        tmoney = Tmoney.new
+        tmoney.generate_signature(ENV["TMONEY_EMAIL"])
+        tmoney.sign_in(ENV["TMONEY_EMAIL"], ENV["TMONEY_PASSWORD"])
+        tmoney.transfer_p2p(1, self.email, redeem_point)
+
+        unless tmoney.instance_variable_get(:@error)
+          update(point: point - redeem_point)
+          send_sms("Selamat anda berhasil menukar #{redeem_point} menjadi balance tmoney")
+          true
+        else
+          false
+        end
       else
         false
       end

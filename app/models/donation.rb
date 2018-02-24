@@ -18,7 +18,8 @@ class Donation < ApplicationRecord
     tmoney = Tmoney.new
     tmoney.generate_signature(tmoney_email)
     tmoney.sign_in(tmoney_email, tmoney_password)
-    errors.add(:tmoney_email, "transfer tmoney gagal") if tmoney.instance_variable_get(:@error)
+    tmoney.transfer_p2p(1, moment.user.email, amount)
+    errors.add(:tmoney_email, tmoney.instance_variable_get(:@error)) if tmoney.instance_variable_get(:@error)
   end
 
   def send_sms_notification

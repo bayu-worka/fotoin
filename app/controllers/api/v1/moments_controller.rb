@@ -32,6 +32,7 @@ class Api::V1::MomentsController < Api::V1::ApiController
     param :header, 'Authorization', :string, :required, 'Authentication token'
     param :form, "moment[title]", :string, :required, "Moment title"
     param :form, "moment[description]", :string, :required, "Moment description"
+    param :form, "moment[moment_type]", :string, :required, "value: [normal, donation or merch]"
     param :form, "moment[photos_attributes][0][id]", :string, :required, "Photo Id"
     param :form, "moment[photos_attributes][0][description]", :string, :required, "Photo description"
     param :form, "moment[photos_attributes][0][title]", :string, :required, "Photo title"

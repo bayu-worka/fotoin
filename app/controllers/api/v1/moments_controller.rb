@@ -78,6 +78,14 @@ class Api::V1::MomentsController < Api::V1::ApiController
     render json: {message: "Moment successfully destroy"}, status: :ok
   end
 
+  swagger_api :make_donation do
+    summary 'make donation to Moment'
+    param :path, :id, :string, :required, "Moment Id"
+    param :header, 'Authorization', :string, :required, 'Authentication token'
+    param :form, "donation[amount]", :float, :required, "amount of donation"
+    param :form, "donation[tmoney_email]", :string, :required, "tmoney email"
+    param :form, "donation[tmoney_password]", :string, :required, "tmoney password"
+  end
   def make_donation
     @donation = @moment.donations.new(donation_params.merge(user: @current_user))
     if @donation.save
@@ -85,10 +93,6 @@ class Api::V1::MomentsController < Api::V1::ApiController
     else
       render json: {errors: @donation.errors}, status: :unprocessable_entity
     end
-  end
-
-  def donation_params
-    params.require(:donation).permit(:amount, :tmoney_email, :tmoney_password)
   end
 
   private
@@ -104,6 +108,10 @@ class Api::V1::MomentsController < Api::V1::ApiController
     # Never trust parameters from the scary internet, only allow the white list through.
     def moment_params
       params.require(:moment).permit(:title, :description, :moment_type, photos_attributes: [:id, :description, :title, :image, :_destroy])
+    end
+
+    def donation_params
+      params.require(:donation).permit(:amount, :tmoney_email, :tmoney_password)
     end
 
     def validate_donation_type_moment

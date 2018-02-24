@@ -185,6 +185,11 @@ class Api::V1::UsersController < Api::V1::ApiController
     render json: {message: response}
   end
 
+  swagger_api :redeem_tmoney do
+    summary 'redeem tmoney'
+    param :header, 'Authorization', :string, :required, 'Authentication token'
+    param :form, "point", :integer, :required, "tmoney password"
+  end
   def redeem_tmoney
     if @current_user.redeem_tmoney(params[:point])
       render json: {message: "Penukaran point berhasil"}

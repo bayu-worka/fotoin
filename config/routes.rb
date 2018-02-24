@@ -86,5 +86,6 @@ Rails.application.routes.draw do
   end
 
   root to: "home#index"
+  get '/api/docs' => redirect('/swagger/dist/index.html?url=/apidocs/api-docs.json')
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

@@ -57,6 +57,7 @@ gem 'font-awesome-sass', '~> 5.0.6'
 gem 'active_model_serializers', '~> 0.10.0'
 gem 'rack-cors'
 gem 'jwt'
+gem 'swagger-docs'
 
 # heroku need this for install yarn
 group :production do

@@ -6,7 +6,6 @@ class Photo < ApplicationRecord
   belongs_to :user
   belongs_to :moment
   validates_presence_of :image
-
   before_validation :assign_user
 
   def get_latest_month_like
@@ -23,6 +22,10 @@ class Photo < ApplicationRecord
 
   def get_this_month_like_size
     get_this_month_like.size
+  end
+
+  def add_point_to_owner
+    user.update(point: user.point + 1)
   end
 
   private

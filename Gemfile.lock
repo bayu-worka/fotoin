@@ -1,4 +1,12 @@
 GIT
+  remote: https://github.com/metalkoholic/acts_as_votable.git
+  revision: c6e352d0da7eb109c1ba62ee985563d4cc499c5c
+  branch: fotoin
+  specs:
+    acts_as_votable (0.11.1)
+      paranoia (~> 2.4)
+
+GIT
   remote: https://github.com/tcocca/acts_as_follower.git
   revision: c5ac7b9601c4af01eb4d9112330b27be4d694ecc
   branch: master
@@ -55,7 +63,6 @@ GEM
       activerecord (>= 4.0)
       activesupport (>= 4.0)
       awesome_nested_set (>= 3.0)
-    acts_as_votable (0.11.1)
     addressable (2.5.2)
       public_suffix (>= 2.0.2, < 4.0)
     arel (8.0.0)
@@ -190,6 +197,8 @@ GEM
       mini_portile2 (~> 2.3.0)
     nprogress-rails (0.2.0.2)
     orm_adapter (0.5.0)
+    paranoia (2.4.0)
+      activerecord (>= 4.0, < 5.2)
     pg (0.21.0)
     public_suffix (3.0.1)
     puma (3.11.2)
@@ -329,7 +338,7 @@ DEPENDENCIES
   active_model_serializers (~> 0.10.0)
   acts_as_commentable_with_threading
   acts_as_follower!
-  acts_as_votable (~> 0.11.1)
+  acts_as_votable!
   better_errors
   binding_of_caller
   bootstrap-sass (~> 3.3.7)

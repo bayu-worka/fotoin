@@ -60,7 +60,7 @@ Rails.application.routes.draw do
         end
       end
 
-      resources :users, only: [:show] do
+      resources :users, only: [:show, :index] do
         collection do
           post :sign_up
           post :sign_in

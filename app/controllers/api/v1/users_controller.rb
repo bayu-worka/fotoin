@@ -5,6 +5,15 @@ class Api::V1::UsersController < Api::V1::ApiController
 
   swagger_controller :users, 'Users'
 
+  swagger_api :index do
+    summary 'get all users'
+    param :header, 'Authorization', :string, :required, 'Authentication token'
+  end
+  def index
+    users = User.page(params[:page])
+    render json: users, each_serializer: UserIndexSerializer, meta: pagination_dict(users), scope: {'current_user': @current_user}
+  end
+
   swagger_api :sign_in do
     summary 'Sign in User'
     param :form, :email, :string, :required, "User Email"

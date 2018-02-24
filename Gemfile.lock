@@ -1,7 +1,7 @@
 GIT
   remote: https://github.com/metalkoholic/acts_as_votable.git
-  revision: c6e352d0da7eb109c1ba62ee985563d4cc499c5c
-  branch: fotoin
+  revision: 50d8d5f5f0194d5ee891e0c10ed86fe5bd329491
+  branch: fotoin-new
   specs:
     acts_as_votable (0.11.1)
       paranoia (~> 2.4)

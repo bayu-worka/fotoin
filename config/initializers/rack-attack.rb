@@ -24,9 +24,9 @@ class Rack::Attack
   # Throttle all requests by IP (60rpm)
   #
   # Key: "rack::attack:#{Time.now.to_i/:period}:req/ip:#{req.ip}"
-  throttle('req/ip', limit: 5, period: 1.second) do |req|
-    req.ip # unless req.path.start_with?('/assets')
-  end
+  # throttle('req/ip', limit: 5, period: 1.second) do |req|
+  #   req.ip # unless req.path.start_with?('/assets')
+  # end
 
   ### Prevent Brute-Force Login Attacks ###
 
@@ -40,11 +40,11 @@ class Rack::Attack
   # Throttle POST requests to /login by IP address
   #
   # Key: "rack::attack:#{Time.now.to_i/:period}:logins/ip:#{req.ip}"
-  throttle('logins/ip', limit: 5, period: 1.second) do |req|
-    if req.path == '/users/sign_in' && req.post?
-      req.ip
-    end
-  end
+  # throttle('logins/ip', limit: 5, period: 1.second) do |req|
+  #   if req.path == '/users/sign_in' && req.post?
+  #     req.ip
+  #   end
+  # end
 
   # Throttle POST requests to /login by email param
   #
@@ -54,12 +54,12 @@ class Rack::Attack
   # throttle logins for another user and force their login requests to be
   # denied, but that's not very common and shouldn't happen to you. (Knock
   # on wood!)
-  throttle("logins/email", limit: 5, period: 20.seconds) do |req|
-    if req.path == '/users/sign_in' && req.post?
-      # return the email if present, nil otherwise
-      req.params['user'].presence
-    end
-  end
+  # throttle("logins/email", limit: 5, period: 20.seconds) do |req|
+  #   if req.path == '/users/sign_in' && req.post?
+  #     # return the email if present, nil otherwise
+  #     req.params['user'].presence
+  #   end
+  # end
 
   ### Custom Throttle Response ###
 
@@ -74,12 +74,12 @@ class Rack::Attack
   #    {},   # headers
   #    ['']] # body
   # end
-  blocklist('fail2ban pentesters') do |req|
-    # `filter` returns truthy value if request fails, or if it's from a previously banned IP
-    # so the request is blocked
-    Rack::Attack::Fail2Ban.filter(req.ip, maxretry: 3, findtime: 3.minutes, bantime: 5.minutes) do
-      # The count for the IP is incremented if the return value is truthy
-      req.path == '/users/sign_in' and req.post?
-    end
-  end
+  # blocklist('fail2ban pentesters') do |req|
+  #   # `filter` returns truthy value if request fails, or if it's from a previously banned IP
+  #   # so the request is blocked
+  #   Rack::Attack::Fail2Ban.filter(req.ip, maxretry: 3, findtime: 3.minutes, bantime: 5.minutes) do
+  #     # The count for the IP is incremented if the return value is truthy
+  #     req.path == '/users/sign_in' and req.post?
+  #   end
+  # end
 end

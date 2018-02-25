@@ -34,6 +34,7 @@ class Api::V1::UsersController < Api::V1::ApiController
     param :form, :email, :string, :required, "User Email"
     param :form, :password, :string, :required, "User Password"
     param :form, :phone, :string, :required, "User Password"
+    param :form, :address, :string, :required, "User Address"
   end
   def sign_up
     user = User.new(user_params)

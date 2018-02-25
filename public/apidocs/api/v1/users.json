@@ -30,6 +30,13 @@
               "type": "string",
               "description": "User Password",
               "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "address",
+              "type": "string",
+              "description": "User Address",
+              "required": true
             }
           ],
           "nickname": "Api::V1::Users#sign_up",

@@ -77,7 +77,7 @@ class Rack::Attack
   blocklist('fail2ban pentesters') do |req|
     # `filter` returns truthy value if request fails, or if it's from a previously banned IP
     # so the request is blocked
-    Rack::Attack::Fail2Ban.filter(maxretry: 3, findtime: 3.minutes, bantime: 5.minutes) do
+    Rack::Attack::Fail2Ban.filter(req.ip, maxretry: 3, findtime: 3.minutes, bantime: 5.minutes) do
       # The count for the IP is incremented if the return value is truthy
       req.path == '/users/sign_in' and req.post?
     end

@@ -8,6 +8,7 @@ Bundler.require(*Rails.groups)
 module Fotoin
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
+    config.middleware.use Rack::Attack
     config.load_defaults 5.1
     config.time_zone = 'Asia/Jakarta'
     config.autoload_paths << Rails.root.join('lib')

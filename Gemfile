@@ -47,6 +47,7 @@ gem 'sidekiq'
 gem "sidekiq-cron", "~> 0.6.3"
 gem "cocoon"
 gem 'meta-tags'
+gem 'rack-attack'
 
 # assets
 gem 'bootstrap-sass', '~> 3.3.7'
